@@ -1,107 +1,154 @@
 # GPT.md
 
-Instrucțiuni pentru asistenții AI care lucrează în acest repository.
+Instructions for AI assistants working in this repository.
 
-> Acest fișier este sursa unică de adevăr pentru instrucțiunile AI.
-> `.github/copilot-instructions.md` este o copie generată din el — vezi [Sincronizare](#sincronizare).
+> This file is the **single source of truth** for AI instructions.
+> `.github/copilot-instructions.md` is generated from it — see [Syncing](#syncing).
 
-## Proiect
+## Project
 
-`react-basic-concepts/` este o aplicație Vite + React 19 + TypeScript folosită ca laborator personal de învățare pentru React. Fiecare concept studiat devine un demo în aplicație; scopul este înțelegerea conceptelor, nu livrarea unui produs.
+A single React application used as a personal learning lab for React fundamentals. The app grows over time: each concept the user studies becomes one step (one demo) in the app. The goal is understanding every mandatory React term, not shipping a product.
 
-Specificația traseului de învățare este în [docs/requirements.md](docs/requirements.md). Dacă documentul descrie o structură de directoare diferită, convențiile din acest fișier au prioritate pentru organizarea codului.
+The ordered concept path lives in [docs/requirements.md](docs/requirements.md) (written in Romanian). Read it before proposing work. Where that document and the [Repo layout](#repo-layout) section below disagree, **this file wins** — the layout was revised after `requirements.md` was written.
 
-## Persoana căreia îi răspunzi
+## Who you are talking to
 
-Este un dezvoltator experimentat în Python / Java / C#, fără experiență în JavaScript și React.
+An experienced developer, fluent in Python / Java / C#, with **no JavaScript and no React experience**.
 
-- Nu explica noțiuni generale de programare.
-- Explică toate noțiunile specifice JavaScript și React, inclusiv cele aparent simple: `const` vs `let`, module ES, `map`, promisiuni și `async/await`.
-- Leagă un concept nou de un echivalent din Python, Java sau C# atunci când există. Spune explicit când nu există un echivalent direct.
-- Răspunde în română.
+- Do **not** explain general programming (variables, functions, classes, OOP, recursion).
+- Do explain **everything** JS- and React-specific, including what looks trivial: `const` vs `let`, ES modules, `map`, promises, `async/await`.
+- Anchor every new concept to a language they already know — `props` ≈ constructor arguments, a component ≈ a class with a single `render`, `key` ≈ stable identity in a list. When there is no equivalent (hooks, re-render semantics), say so explicitly.
 
-## Protocol de predare
+## Teaching protocol (hard rules)
 
-Pentru fiecare concept, ordinea este: **explică → răspunde la întrebări → scrieți codul împreună**.
+For every concept, in this order: **explain → answer questions → write code together.**
 
-- Nu scrie codul unui concept înainte ca explicația să fie înțeleasă și înainte de confirmarea utilizatorului.
-- Abordează un singur concept într-o sesiune.
-- Scrie cel mai mic exemplu funcțional care demonstrează conceptul.
-- Nu pregăti demo-uri pentru concepte viitoare. Folderele standard din secțiunea următoare pot exista goale.
-- Când utilizatorul cere ghidare pas cu pas, nu livra soluția completă dintr-o dată.
+- Never write code before the explanation has landed.
+- One concept per session.
+- Ask before writing code.
+- Write the **smallest** working example that demonstrates the concept, not a complete one.
+- Never scaffold future lessons — no placeholder files, no imports for concepts not yet reached.
+- When the user asks to be guided step by step, do not hand over the full solution.
+- Reply in **Romanian**.
 
-## Structura obligatorie
+## Stack & commands
 
-Toate căile din această secțiune sunt relative la `react-basic-concepts/`.
+Vite · React 19 · TypeScript · npm. Vitest + React Testing Library are added only when the testing lesson is reached. Do not add other dependencies without an explicit, discussed reason.
+
+```bash
+npm install
+npm run dev      # dev server
+npm run build    # type-check + production build
+npm run preview  # serve the build
+npm test         # from the testing lesson onward
+```
+
+## Repo layout
+
+Every kind of code has exactly one destination, decided before the code is written:
 
 ```
 src/
-  App.tsx                 # shell-ul aplicației și registrul demo-urilor
-  demos/                  # un concept / pas per fișier .tsx
-  components/             # componente reutilizate de mai mulți pași
-  hooks/                  # un custom hook per fișier
-  context/                # un provider și hook-ul său de consum, per fișier
-  lib/                    # helperi mici, fără UI
+  App.tsx        # shell: the demo REGISTRY + the active demo. Stays short.
+  demos/         # ONE FILE PER STEP — Counter.tsx, Timer.tsx, ...
+  components/    # components shared between steps
+  hooks/         # one custom hook per file
+  context/       # one provider + its consumer hook, per file
+  lib/           # small helpers — pure functions, no JSX
+  assets/        # images, svg
 ```
 
-- Fiecare pas nou este într-un singur fișier: `src/demos/<Concept>.tsx`, de exemplu `Counter.tsx` sau `Timer.tsx`.
-- Nu pune conținutul unui concept nou în `App.tsx` și nu aduna mai multe concepte în același demo.
-- `App.tsx` rămâne scurt: este shell-ul și lista de demo-uri, nu locul conținutului fiecărui demo.
+These folders exist from the start, deliberately. Creating a folder is not scaffolding a lesson; creating a *file* for a concept not yet reached is, and stays forbidden.
 
-## Registrul playground-ului
+Rules that keep this from collapsing back into one big file:
 
-Pe măsură ce se adaugă demo-uri, `App.tsx` definește și folosește exact această structură:
+- A demo never lives in `App.tsx`. Not even a small one.
+- A file in `demos/` is named after the concept it demonstrates (`Counter.tsx`, `Timer.tsx`), not after the step number.
+- Code shared by two steps moves to `components/`, `hooks/` or `lib/` — it is not copy-pasted, and it is not left in the first demo for the second one to import.
+
+## The registry in App.tsx
+
+`App.tsx` is a shell. It holds the list of demos, never their content:
 
 ```ts
 type Demo = { id: string; step: number; title: string; element: ReactNode }
 
-const demos: Demo[] = []
-const [activeId, setActiveId] = useState(demos[0]?.id ?? '')
-const active = demos.find((demo) => demo.id === activeId) ?? demos[0]
+const demos: Demo[] = [
+  { id: 'counter', step: 2, title: 'useState', element: <Counter /> },
+]
 ```
 
-- Un pas nou înseamnă numai două schimbări de cod: un fișier nou în `src/demos/` și o intrare nouă în `demos` din `App.tsx`.
-- Shell-ul din `App.tsx` randează titlul în forma `Pas N — Titlu`; demo-ul randează numai propriul conținut.
-- Meniul de navigare se construiește mai târziu, când există suficiente demo-uri. Până atunci se stabilește doar registrul și locul fiecărui demo.
+plus the active id in state, and the lookup:
 
-## Convenții de cod și comentarii
-
-- Folosește numai componente funcționale.
-- Tipărește `props` cu un `type Props` local, în același fișier.
-- Nu folosi `any` și nici non-null assertions (`!`) pentru a ascunde erori de tipare.
-- Fiecare fișier de demo începe exact cu un antet în română de forma `// Pas N — <concept>.`.
-- După antet, adaugă câteva linii de comentarii în română care explică **de ce** există pasul și ce problemă de învățare rezolvă, nu doar ce face codul.
-- Orice alt comentariu explică de ce există codul sau de ce a fost aleasă o decizie; nu repetă mecanic codul.
-
-## Definiția unui pas terminat
-
-- Demo-ul rulează prin registrul din aplicație.
-- `npm run build` trece fără erori.
-- Pasul conține comentariile explicative cerute mai sus.
-- Utilizatorul poate explica conceptul cu propriile cuvinte.
-
-## Commit-uri
-
-- Creează un commit separat pentru fiecare pas sau schimbare de structură distinctă.
-- Pentru un concept, mesajul urmează forma: `pas N — concept (DemoName)`, de exemplu `pas 2 — useState (Counter)`.
-
-## Stack și comenzi
-
-Vite · React 19 · TypeScript · npm. Nu adăuga dependențe fără un motiv explicit, discutat. Vitest și React Testing Library se adaugă doar la pasul de testare.
-
-```bash
-npm install
-npm run dev
-npm run build
-npm run preview
-npm test
+```ts
+const [activeId, setActiveId] = useState('counter')
+const active = demos.find((d) => d.id === activeId) ?? demos[0]
 ```
 
-## Sincronizare
+The `?? demos[0]` fallback exists so `active` is never `undefined` — that is what lets us avoid a non-null assertion (`!`), which is banned.
 
-`.github/copilot-instructions.md` este o copie generată din acest fișier; nu o edita manual.
+- **Adding a step = one new file in `src/demos/` + one new entry in `demos`. Nothing else changes.**
+- The shell renders the heading `Pas N — Titlu` from `active.step` / `active.title`. A demo renders **only its own content** and never its own title.
+- Steps already in place must keep working as the app grows.
+- `App.tsx` must stay short. Past ~100 lines, something in it belongs in `components/`.
+- The navigation menu is built later, once there are enough demos to justify it. Until then the registry alone is enough.
+- The active step lives in `useState` until the React Router lesson (step 19) replaces it.
+
+## Code conventions
+
+- Function components only.
+- Type props with a local `Props` type in the same file.
+- No `any`. No non-null assertions (`!`) to silence the type checker.
+- One default export per demo file: the demo component. Everything else is a named export.
+- Identifiers, file names, `docs/` and `README.md` are in **English**.
+
+### Comments
+
+Comments in `src/` are in **Romanian** — they are the user's learning notes, not production documentation.
+
+Every file in `demos/` opens with a header comment: the step line, then a few lines on **why this step exists** — which problem the concept solves — not a restatement of what the code does.
+
+```tsx
+// Pas 2 — useState.
+// De ce: o variabila normala se pierde la fiecare re-render, iar React nu afla
+// ca s-a schimbat ceva. useState da valorii o identitate care supravietuieste
+// re-render-ului si, in acelasi timp, cere lui React sa redeseneze.
+// Capcana: setState nu modifica variabila pe loc — la randarea urmatoare
+// primesti valoarea noua.
+```
+
+Inside the code, comment only where a JS/React idiom would surprise a Java/C#/Python developer, and say **why** it is written that way. Do not narrate lines that already read clearly.
+
+## Definition of done for a step
+
+- The demo runs in the app, reachable from the registry.
+- The file lives in `src/demos/`, opens with the `// Pas N — <concept>.` header, and renders no title of its own.
+- `App.tsx` grew by exactly one registry entry.
+- `npm run build` passes.
+- The user can explain the concept in their own words without looking at the code.
+
+## Commits
+
+One commit per step, message in the form:
+
+```
+pas 2 — useState (Counter)
+```
+
+Never fold two steps into one commit — each step must stay individually revertable.
+
+## Syncing
+
+`.github/copilot-instructions.md` is a generated copy of this file. Never edit it by hand.
 
 ```bash
-./scripts/sync-ai-instructions.sh
-./scripts/sync-ai-instructions.sh --check
+./scripts/sync-ai-instructions.sh           # regenerate after editing GPT.md
+./scripts/sync-ai-instructions.sh --check   # exit 1 if the copy is stale (CI / pre-commit)
+```
+
+To enforce it locally, wire the check into a hook yourself:
+
+```bash
+printf '#!/bin/sh\nexec ./scripts/sync-ai-instructions.sh --check\n' > .git/hooks/pre-commit
+chmod +x .git/hooks/pre-commit
 ```
