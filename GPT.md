@@ -1,6 +1,3 @@
-<!-- GENERATED FILE — DO NOT EDIT.
-     Source: GPT.md · Regenerate: ./scripts/sync-ai-instructions.sh -->
-
 # GPT.md
 
 Instrucțiuni pentru asistenții AI care lucrează în acest repository.
