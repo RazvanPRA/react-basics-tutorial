@@ -1,40 +1,27 @@
-# React Basics Tutorial
+# react-basics-tutorial
 
-This repository defines a documentation-first, bilingual learning application for developers moving from languages such as Python, Java, or C# into JavaScript, TypeScript, and React.
+A learning lab for React fundamentals, aimed at developers who are fluent in Python, Java or C# but new to JavaScript and React. It is a single app that grows one concept at a time: every term studied — JSX, props, state, effects, hooks — becomes a tab in the app, so nothing learned is thrown away.
 
-## Current status
+**Status:** docs-first. The Vite app is created in Lesson 0, interactively — there is no application code yet.
 
-The project currently contains product requirements and shared agent instructions only. A Vite application and lesson code have intentionally not been scaffolded: the tutorial will be built through small, guided learning steps rather than generated all at once.
+**Stack:** Vite · React 19 · TypeScript · npm
 
-## Planned learning experience
+## Quick start
 
-The future application will grow alongside the learner. A single-page React lesson navigator will use concept buttons to open lessons, while lesson text is shown side by side in Romanian and English. Each lesson will combine a focused explanation, concise example, small exercise, hint, and an optional solution.
+Available once Lesson 0 has created the app:
 
-Learners will be able to mark lessons complete. Progress will be stored locally in the browser with `localStorage`; the first version has no accounts, backend, or cloud sync.
-
-The curriculum covers JavaScript for React, TypeScript, JSX, components, props, state, events, rendering, forms, effects, data fetching, composition, context, custom hooks, routing, testing, accessibility, performance, authentication concepts, and deployment.
-
-## Planned technology
-
-- Vite, React, and TypeScript
-- CSS Modules and CSS custom properties
-- React state for the initial lesson navigator
-- Component and behaviour tests as the tutorial grows
-
-## Repository layout
-
-- `docs/requirements.md` — product requirements in Romanian.
-- `CODEX.md` — canonical shared instructions for coding agents, in English.
-- `.github/copilot-instructions.md` — generated Copilot instructions; do not edit directly.
-- `scripts/sync-instructions.sh` — POSIX synchronization and validation script.
-
-## Synchronize agent instructions
-
-Run these commands from Git Bash or WSL at the repository root:
-
-```sh
-sh scripts/sync-instructions.sh
-sh scripts/sync-instructions.sh --check
+```bash
+npm install
+npm run dev
 ```
 
-Edit `CODEX.md` when the shared instructions need to change, then run the synchronization command. The `--check` command does not modify files and exits with a non-zero status if the generated Copilot file is missing or out of date.
+## How it works
+
+- One app, one tab per concept.
+- Concepts are taught in order, one at a time: explanation first, then code written together.
+- Every concept is anchored to an equivalent in Python / Java / C# — or flagged as having none.
+
+## Docs
+
+- [docs/requirements.md](docs/requirements.md) — the spec: scope, way of working, architecture, and the ordered concept path (in Romanian).
+- [GPT.md](GPT.md) — instructions for AI assistants working in this repo. `.github/copilot-instructions.md` is generated from it by [scripts/sync-ai-instructions.sh](scripts/sync-ai-instructions.sh) — don't edit it by hand.

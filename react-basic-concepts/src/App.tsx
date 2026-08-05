@@ -4,8 +4,19 @@ import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
 
+function TestButton() {
+  return (
+    <button type="button" className="counter">
+      My first button
+    </button>
+  )
+}
+
 function App() {
   const [count, setCount] = useState(0)
+
+  const b1 = TestButton()
+  console.log('b1', b1)
 
   return (
     <>
@@ -17,6 +28,9 @@ function App() {
         </div>
         <div>
           <h1>Get started</h1>
+          <TestButton />
+          {TestButton()}
+          {b1}
           <p>
             Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
           </p>
