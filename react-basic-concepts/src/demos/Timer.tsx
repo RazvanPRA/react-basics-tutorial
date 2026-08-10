@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 
 // Pas 11 — useEffect și cleanup.
 // De ce: randarea trebuie să rămână pură; operațiile care comunică cu exteriorul
@@ -83,12 +84,8 @@ export default function Timer() {
       <p aria-live="polite" style={{ fontSize: "3rem" }}>
         {seconds} s
       </p>
-      <button type="button" onClick={() => setRunning(currentRunning => !currentRunning)}>
-        {running ? "Pauză" : "Pornește"}
-      </button>
-      <button type="button" onClick={() => setSeconds(0)}>
-        Reset
-      </button>
+      <Button onClick={() => setRunning(currentRunning => !currentRunning)}>{running ? "Pauză" : "Pornește"}</Button>
+      <Button onClick={() => setSeconds(0)}>Reset</Button>
     </section>
   );
 }

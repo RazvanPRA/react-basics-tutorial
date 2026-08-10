@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 // Configurăm aliasul acum deoarece shadcn/ui îl va cere când îl adăugăm mai târziu.
 // Este util și fără shadcn/ui: după mutarea unui fișier, importurile @/ rămân stabile.
@@ -45,12 +46,20 @@ export function PathAlias() {
       </p>
 
       <div style={{ display: "flex", justifyContent: "center", gap: "12px", flexWrap: "wrap", marginBottom: "20px" }}>
-        <button type="button" aria-pressed={!usesAlias} onClick={() => setUsesAlias(false)}>
+        <Button
+          aria-pressed={!usesAlias}
+          onClick={() => setUsesAlias(false)}
+          variant={!usesAlias ? "default" : "secondary"}
+        >
           Fără alias (relativ)
-        </button>
-        <button type="button" aria-pressed={usesAlias} onClick={() => setUsesAlias(true)}>
+        </Button>
+        <Button
+          aria-pressed={usesAlias}
+          onClick={() => setUsesAlias(true)}
+          variant={usesAlias ? "default" : "secondary"}
+        >
           Cu alias @/
-        </button>
+        </Button>
       </div>
 
       <pre style={codeStyle} aria-live="polite">

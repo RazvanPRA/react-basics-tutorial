@@ -1,4 +1,5 @@
-import { useEffect, useState, type CSSProperties } from "react";
+import { useState, type CSSProperties } from "react";
+import { Button } from "@/components/ui/button";
 
 const manualCardStyle: CSSProperties = {
   backgroundColor: "#fafafa",
@@ -11,62 +12,34 @@ const manualCardStyle: CSSProperties = {
   textAlign: "left"
 };
 
-const manualButtonStyle: CSSProperties = {
-  backgroundColor: "#171717",
-  border: 0,
-  borderRadius: "8px",
-  color: "#fafafa",
-  cursor: "pointer",
-  fontWeight: 600,
-  padding: "10px 16px"
-};
-
 export function TailwindSetup() {
   const [usesTokens, setUsesTokens] = useState(false);
-  const [isDark, setIsDark] = useState(false);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", isDark);
-
-    return () => document.documentElement.classList.remove("dark");
-  }, [isDark]);
 
   return (
     <section className="mx-auto flex w-full max-w-3xl flex-col items-center gap-6 px-5 pb-10 text-left">
-      <div className="flex w-full flex-wrap items-center justify-between gap-3 rounded-card border border-border bg-muted p-3 text-sm text-muted-foreground">
-        <span>
-          Tema activă: <strong className="text-foreground">{isDark ? "dark" : "light"}</strong>
-        </span>
-        <button
-          className="rounded-card bg-primary px-3 py-2 font-semibold text-primary-foreground transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-          type="button"
-          onClick={() => setIsDark(current => !current)}
-        >
-          Comută tema
-        </button>
+      <div className="w-full rounded-card border border-border bg-muted p-3 text-sm text-muted-foreground">
+        Comută tema din bara de navigație pentru a vedea cum tokenii actualizează componentele.
       </div>
 
       <div className="inline-flex rounded-card border border-border bg-muted p-1 text-sm font-semibold">
-        <button
+        <Button
           aria-pressed={!usesTokens}
           className={`rounded-card px-3 py-2 transition ${
             !usesTokens ? "bg-card text-card-foreground shadow-sm" : "text-muted-foreground"
           }`}
-          type="button"
           onClick={() => setUsesTokens(false)}
         >
           Stiluri scrise de mână
-        </button>
-        <button
+        </Button>
+        <Button
           aria-pressed={usesTokens}
           className={`rounded-card px-3 py-2 transition ${
             usesTokens ? "bg-card text-card-foreground shadow-sm" : "text-muted-foreground"
           }`}
-          type="button"
           onClick={() => setUsesTokens(true)}
         >
           Utilitare + tokeni
-        </button>
+        </Button>
       </div>
 
       {/*
@@ -84,9 +57,7 @@ export function TailwindSetup() {
           <p className="mb-6 text-base text-muted-foreground">
             O experiență de lucru consecventă, construită din valori reutilizabile.
           </p>
-          <button className="rounded-card bg-primary px-4 py-2.5 font-semibold text-primary-foreground" type="button">
-            Alege planul
-          </button>
+          <Button>Alege planul</Button>
         </article>
       ) : (
         <article style={manualCardStyle}>
@@ -95,9 +66,7 @@ export function TailwindSetup() {
           <p style={{ color: "#525252", margin: "0 0 24px" }}>
             O experiență de lucru consecventă, construită din valori reutilizabile.
           </p>
-          <button style={manualButtonStyle} type="button">
-            Alege planul
-          </button>
+          <Button>Alege planul</Button>
         </article>
       )}
       <p className="max-w-sm text-center text-sm text-muted-foreground">

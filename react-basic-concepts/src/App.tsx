@@ -1,14 +1,21 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
+import { Moon, Sun } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ActiveStepProvider, type ActiveStep, useActiveStep } from "@/context/ActiveStepProvider";
 import { CounterClass } from "@/demos/CounterClass";
+import { ContextDemo } from "@/demos/ContextDemo";
+import { CustomHooks } from "@/demos/CustomHooks";
 import { LiftingState } from "@/demos/LiftingState";
 import { PathAlias } from "@/demos/PathAlias";
 import { PrettierFormat } from "@/demos/PrettierFormat";
 import { PureFunctions } from "@/demos/PureFunctions";
+import { ShadcnSetup } from "@/demos/ShadcnSetup";
 import { TailwindSetup } from "@/demos/TailwindSetup";
 import Timer from "@/demos/Timer";
+import { cn } from "@/lib/utils";
 import "@/App.css";
 
-type Demo = { id: string; step: number; title: string; element: ReactNode };
+type Demo = ActiveStep & { element: ReactNode };
 
 const demos: Demo[] = [
   { id: "lifting-state", step: 6, title: "Lifting state up", element: <LiftingState /> },
@@ -17,21 +24,62 @@ const demos: Demo[] = [
   { id: "counter-class", step: 4, title: "Componentă de clasă", element: <CounterClass /> },
   { id: "path-alias", step: 7, title: "Aliasuri de import", element: <PathAlias /> },
   { id: "timer", step: 11, title: "useEffect și cleanup", element: <Timer /> },
-  { id: "tailwind-setup", step: 20, title: "Tailwind CSS v4", element: <TailwindSetup /> }
+  { id: "custom-hooks", step: 12, title: "Custom hooks", element: <CustomHooks /> },
+  { id: "context", step: 13, title: "Context global", element: <ContextDemo /> },
+  { id: "tailwind-setup", step: 20, title: "Tailwind CSS v4", element: <TailwindSetup /> },
+  { id: "shadcn-setup", step: 21, title: "shadcn/ui", element: <ShadcnSetup /> }
 ];
 
-function App() {
-  const [activeId, setActiveId] = useState("lifting-state");
+function DemoTab({ demo }: { demo: Demo }) {
+  const { activeId, setActiveId } = useActiveStep();
+  const active = demo.id === activeId;
+
+  return (
+    <Button
+      aria-pressed={active}
+      className="relative overflow-visible"
+      onClick={() => setActiveId(demo.id)}
+      size="sm"
+      variant={active ? "default" : "secondary"}
+    >
+      <span
+        aria-hidden="true"
+        className={cn(
+          "absolute -right-2 -top-2 rounded-full px-1.5 py-0.5 text-xs",
+          active ? "bg-secondary text-secondary-foreground" : "bg-primary text-primary-foreground"
+        )}
+      >
+        {demo.step}
+      </span>
+      Pas {demo.step}: {demo.title}
+    </Button>
+  );
+}
+
+function ThemeToggle({ isDark, onToggle }: { isDark: boolean; onToggle: () => void }) {
+  const label = isDark ? "Activează tema deschisă" : "Activează tema închisă";
+
+  return (
+    <Button aria-label={label} onClick={onToggle} size="icon" title={label} variant="outline">
+      {isDark ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}
+    </Button>
+  );
+}
+
+function AppContent({ isDark, onToggleTheme }: { isDark: boolean; onToggleTheme: () => void }) {
+  const { activeId } = useActiveStep();
   const active = demos.find(demo => demo.id === activeId) ?? demos[0];
 
   return (
     <>
-      <nav aria-label="Demonstrații">
+      <nav
+        aria-label="Demonstrații"
+        className="flex flex-wrap items-center justify-center gap-3 border-b border-border bg-card p-4"
+      >
         {demos.map(demo => (
-          <button key={demo.id} type="button" onClick={() => setActiveId(demo.id)}>
-            Pas {demo.step}: {demo.title}
-          </button>
+          <DemoTab demo={demo} key={demo.id} />
         ))}
+        <ThemeToggle isDark={isDark} onToggle={onToggleTheme} />
       </nav>
       <main>
         <h1>
@@ -40,6 +88,22 @@ function App() {
         {active.element}
       </main>
     </>
+  );
+}
+
+function App() {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", isDark);
+
+    return () => document.documentElement.classList.remove("dark");
+  }, [isDark]);
+
+  return (
+    <ActiveStepProvider steps={demos}>
+      <AppContent isDark={isDark} onToggleTheme={() => setIsDark(current => !current)} />
+    </ActiveStepProvider>
   );
 }
 

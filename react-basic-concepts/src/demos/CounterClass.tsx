@@ -1,11 +1,12 @@
 import { Component } from "react";
+import { Button } from "@/components/ui/button";
 
 type CounterClassState = {
   count: number;
 };
 
 // Varianta veche, orientată pe obiecte: React păstrează starea pe instanța clasei.
-export class CounterClass extends Component<{}, CounterClassState> {
+export class CounterClass extends Component<Record<string, never>, CounterClassState> {
   state: CounterClassState = { count: 0 };
 
   // Arrow functions păstrează automat `this` legat de instanța componentei.
@@ -30,15 +31,9 @@ export class CounterClass extends Component<{}, CounterClassState> {
         <p aria-live="polite" style={{ fontSize: "3rem" }}>
           {this.state.count}
         </p>
-        <button type="button" onClick={this.increment}>
-          +
-        </button>
-        <button type="button" onClick={this.decrement}>
-          −
-        </button>
-        <button type="button" onClick={this.reset}>
-          0
-        </button>
+        <Button onClick={this.increment}>+</Button>
+        <Button onClick={this.decrement}>−</Button>
+        <Button onClick={this.reset}>0</Button>
       </section>
     );
   }

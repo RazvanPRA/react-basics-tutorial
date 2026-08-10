@@ -8,9 +8,13 @@
   --card-foreground: oklch(0.145 0 0);
   --primary: oklch(0.55 0.25 293);
   --primary-foreground: oklch(0.985 0.002 247.84);
+  --secondary: oklch(0.93 0.006 286);
+  --secondary-foreground: oklch(0.25 0.012 286);
   --muted: oklch(0.95 0.012 286);
   --muted-foreground: oklch(0.47 0.02 286);
   --border: oklch(0.9 0.008 286);
+  --input: var(--border);
+  --ring: var(--primary);
   --radius: 0.75rem;
 
   /* Existing lesson CSS can use the same semantic values during the migration. */
@@ -37,9 +41,13 @@
   --card-foreground: oklch(0.985 0.002 247.84);
   --primary: oklch(0.72 0.19 293);
   --primary-foreground: oklch(0.18 0.016 286);
+  --secondary: oklch(0.27 0.016 286);
+  --secondary-foreground: oklch(0.985 0.002 247.84);
   --muted: oklch(0.27 0.016 286);
   --muted-foreground: oklch(0.72 0.014 286);
   --border: oklch(0.31 0.016 286);
+  --input: var(--border);
+  --ring: var(--primary);
 
   --accent-bg: oklch(0.72 0.19 293 / 0.15);
   --accent-border: oklch(0.72 0.19 293 / 0.5);
@@ -55,9 +63,13 @@
   --color-card-foreground: var(--card-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
   --radius-card: var(--radius);
 }
 

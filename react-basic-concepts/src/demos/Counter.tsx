@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 export function Counter() {
   // Starea este păstrată de React între apelurile acestei funcții.
@@ -11,15 +12,9 @@ export function Counter() {
       <p aria-live="polite" style={{ fontSize: "3rem" }}>
         {count}
       </p>
-      <button type="button" onClick={() => setCount(c => c + 1)}>
-        +
-      </button>
-      <button type="button" onClick={() => setCount(c => c - 1)}>
-        −
-      </button>
-      <button type="button" onClick={() => setCount(() => 0)}>
-        0
-      </button>
+      <Button onClick={() => setCount(c => c + 1)}>+</Button>
+      <Button onClick={() => setCount(c => c - 1)}>−</Button>
+      <Button onClick={() => setCount(() => 0)}>0</Button>
       {/* Forma cu funcție primește mereu cea mai nouă valoare; astfel, mai multe
           actualizări consecutive se cumulează corect. */}
     </section>

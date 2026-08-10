@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 const RATE_INITIAL = 5;
 const RATE_STEP = 0.05;
@@ -33,22 +34,14 @@ export function PureFunctions() {
       <p>
         Suma: <strong>{ron} RON</strong>
       </p>
-      <button type="button" onClick={() => setRon(current => Math.max(0, current - 10))}>
-        −10 RON
-      </button>
-      <button type="button" onClick={() => setRon(current => current + 10)}>
-        +10 RON
-      </button>
+      <Button onClick={() => setRon(current => Math.max(0, current - 10))}>−10 RON</Button>
+      <Button onClick={() => setRon(current => current + 10)}>+10 RON</Button>
 
       <p>
         Curs: <strong>1 EUR = {rate.toFixed(2)} RON</strong>
       </p>
-      <button type="button" onClick={() => setRate(current => Math.max(RATE_STEP, current - RATE_STEP))}>
-        −{RATE_STEP} RON
-      </button>
-      <button type="button" onClick={() => setRate(current => current + RATE_STEP)}>
-        +{RATE_STEP} RON
-      </button>
+      <Button onClick={() => setRate(current => Math.max(RATE_STEP, current - RATE_STEP))}>−{RATE_STEP} RON</Button>
+      <Button onClick={() => setRate(current => current + RATE_STEP)}>+{RATE_STEP} RON</Button>
 
       <p>
         {/* Checkbox-ul este intenționat necontrolat: schimbarea lui nu schimbă state-ul React. */}
