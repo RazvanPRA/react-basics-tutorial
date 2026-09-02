@@ -18,16 +18,16 @@ import "@/App.css";
 type Demo = ActiveStep & { element: ReactNode };
 
 const demos: Demo[] = [
-  { id: "lifting-state", step: 6, title: "Lifting state up", element: <LiftingState /> },
-  { id: "prettier", step: 0, title: "Formatare cu Prettier", element: <PrettierFormat /> },
-  { id: "pure-functions", step: 1, title: "Funcții pure", element: <PureFunctions /> },
+  { id: "lifting-state", step: 1, title: "Lifting state up", element: <LiftingState /> },
+  { id: "prettier", step: 2, title: "Formatare cu Prettier", element: <PrettierFormat /> },
+  { id: "pure-functions", step: 3, title: "Funcții pure", element: <PureFunctions /> },
   { id: "counter-class", step: 4, title: "Componentă de clasă", element: <CounterClass /> },
-  { id: "path-alias", step: 7, title: "Aliasuri de import", element: <PathAlias /> },
-  { id: "timer", step: 11, title: "useEffect și cleanup", element: <Timer /> },
-  { id: "custom-hooks", step: 12, title: "Custom hooks", element: <CustomHooks /> },
-  { id: "context", step: 13, title: "Context global", element: <ContextDemo /> },
-  { id: "tailwind-setup", step: 20, title: "Tailwind CSS v4", element: <TailwindSetup /> },
-  { id: "shadcn-setup", step: 21, title: "shadcn/ui", element: <ShadcnSetup /> }
+  { id: "path-alias", step: 5, title: "Aliasuri de import", element: <PathAlias /> },
+  { id: "timer", step: 6, title: "useEffect și cleanup", element: <Timer /> },
+  { id: "custom-hooks", step: 7, title: "Custom hooks", element: <CustomHooks /> },
+  { id: "context", step: 8, title: "Context global", element: <ContextDemo /> },
+  { id: "tailwind-setup", step: 9, title: "Tailwind CSS v4", element: <TailwindSetup /> },
+  { id: "shadcn-setup", step: 10, title: "shadcn/ui", element: <ShadcnSetup /> }
 ];
 
 function DemoTab({ demo }: { demo: Demo }) {

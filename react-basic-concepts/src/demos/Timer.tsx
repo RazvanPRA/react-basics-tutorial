@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 
-// Pas 11 — useEffect și cleanup.
+// Demonstrație pentru useEffect și cleanup.
 // De ce: randarea trebuie să rămână pură; operațiile care comunică cu exteriorul
 // (timere, fetch-uri, event listeners) sunt efecte secundare și au nevoie de un
 // loc în care React le poate porni și opri controlat.

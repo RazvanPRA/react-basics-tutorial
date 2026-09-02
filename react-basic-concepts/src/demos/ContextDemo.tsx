@@ -90,7 +90,7 @@ export function ContextDemo() {
         </article>
 
         <article className="rounded-card border border-border bg-card p-5 text-left">
-          <h3 className="text-xl font-medium text-card-foreground">LOCAL — useState, Pasul 12</h3>
+          <h3 className="text-xl font-medium text-card-foreground">LOCAL — useState / useCounter</h3>
           <p className="mb-4 text-sm text-muted-foreground">
             Același hook reutilizat de două ori creează două stări independente.
           </p>
