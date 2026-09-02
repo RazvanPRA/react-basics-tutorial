@@ -6,13 +6,8 @@ import path from "node:path";
 // https://vite.dev/config/
 export default defineConfig({
   // GitHub Pages serves this project below /<repository>/, not the domain root.
-  // Relative URLs also work when opening the committed build from docs/ directly.
+  // Relative URLs also work from the artifact published by GitHub Actions.
   base: "./",
-  build: {
-    // Pages can serve only the repository-root docs/ folder. This app lives one
-    // level below the repository root, hence the parent-directory reference.
-    outDir: "../docs"
-  },
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
