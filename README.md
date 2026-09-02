@@ -1,27 +1,73 @@
-# react-basics-tutorial
+# React + TypeScript + Vite
 
-A learning lab for React fundamentals, aimed at developers who are fluent in Python, Java or C# but new to JavaScript and React. It is a single app that grows one concept at a time: every term studied — JSX, props, state, effects, hooks — becomes a tab in the app, so nothing learned is thrown away.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-**Status:** docs-first. The Vite app is created in Lesson 0, interactively — there is no application code yet.
+Currently, two official plugins are available:
 
-**Stack:** Vite · React 19 · TypeScript · npm
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## Quick start
+## React Compiler
 
-Available once Lesson 0 has created the app:
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-```bash
-npm install
-npm run dev
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+
+```js
+export default defineConfig([
+  globalIgnores(["dist"]),
+  {
+    files: ["**/*.{ts,tsx}"],
+    extends: [
+      // Other configs...
+
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked
+
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
+        tsconfigRootDir: import.meta.dirname
+      }
+      // other options...
+    }
+  }
+]);
 ```
 
-## How it works
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-- One app, one tab per concept.
-- Concepts are taught in order, one at a time: explanation first, then code written together.
-- Every concept is anchored to an equivalent in Python / Java / C# — or flagged as having none.
+```js
+// eslint.config.js
+import reactX from "eslint-plugin-react-x";
+import reactDom from "eslint-plugin-react-dom";
 
-## Docs
-
-- [docs/requirements.md](docs/requirements.md) — the spec: scope, way of working, architecture, and the ordered concept path (in Romanian).
-- [GPT.md](GPT.md) — instructions for AI assistants working in this repo. `.github/copilot-instructions.md` is generated from it by [scripts/sync-ai-instructions.sh](scripts/sync-ai-instructions.sh) — don't edit it by hand.
+export default defineConfig([
+  globalIgnores(["dist"]),
+  {
+    files: ["**/*.{ts,tsx}"],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs["recommended-typescript"],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
+        tsconfigRootDir: import.meta.dirname
+      }
+      // other options...
+    }
+  }
+]);
+```
