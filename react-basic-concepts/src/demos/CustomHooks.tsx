@@ -20,12 +20,12 @@ function GrupBox({ categorie, count, pretUnitar, subtotal, onIncrement, onDecrem
   const esteGol = count === 0;
 
   return (
-    <article className="w-full rounded-card border border-border bg-card p-5 text-left shadow-sm">
-      <h3 className="mb-1 text-xl font-medium text-card-foreground">{categorie}</h3>
-      <p className="mb-4 text-sm text-muted-foreground">{pretUnitar} lei / persoană</p>
+    <article className="flex w-full flex-col gap-3 rounded-card border border-border bg-card p-5 text-left shadow-sm">
+      <h3 className="text-xl font-medium text-card-foreground">{categorie}</h3>
+      <p className="text-sm text-muted-foreground">{pretUnitar} lei / persoană</p>
       <p className="text-3xl font-semibold text-card-foreground">{count} persoane</p>
-      <p className="mb-5 text-primary">Subtotal: {subtotal} lei</p>
-      <div className="flex flex-wrap gap-2">
+      <p className="text-primary">Subtotal: {subtotal} lei</p>
+      <div className="flex flex-wrap items-center gap-2">
         <Button disabled={esteGol} onClick={onDecrement} variant="secondary">
           −1
         </Button>
@@ -52,8 +52,8 @@ export function CustomHooks() {
 
   // Componenta rămâne subțire: logica reutilizabilă trăiește în hooks.
   return (
-    <section className="mx-auto w-full max-w-2xl px-5">
-      <p className="mb-5 text-muted-foreground">
+    <section className="mx-auto flex w-full max-w-2xl flex-col gap-4 px-5">
+      <p className="text-muted-foreground">
         Fereastră: {width} × {height}px
       </p>
       <div className="grid gap-4 sm:grid-cols-2">
@@ -76,7 +76,7 @@ export function CustomHooks() {
           subtotal={subtotalAdulti}
         />
       </div>
-      <div className="mt-4 rounded-card border border-primary bg-primary/10 p-5 text-left text-card-foreground">
+      <div className="flex flex-col gap-2 rounded-card border border-primary bg-primary/10 p-5 text-left text-card-foreground">
         <h3 className="text-xl font-medium">Total grup</h3>
         <p>{numarTotal} persoane</p>
         <p className="text-2xl font-semibold text-primary">De plată: {plataTotala} lei</p>

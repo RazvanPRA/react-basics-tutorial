@@ -27,13 +27,21 @@ export class CounterClass extends Component<Record<string, never>, CounterClassS
     // Aici fluxul OOP este explicit: schimbăm state cu setState → React apelează iar render().
     // În cod nou preferăm componente funcționale + hooks: sunt mai concise și sunt stilul React modern.
     return (
-      <section>
-        <p aria-live="polite" style={{ fontSize: "3rem" }}>
+      <section className="mx-auto flex w-full max-w-md flex-col items-center gap-4 px-5 text-center">
+        <p aria-live="polite" className="text-5xl font-semibold text-foreground">
           {this.state.count}
         </p>
-        <Button onClick={this.increment}>+</Button>
-        <Button onClick={this.decrement}>−</Button>
-        <Button onClick={this.reset}>0</Button>
+        <div className="flex flex-wrap items-center justify-center gap-2">
+          <Button aria-label="Crește contorul" onClick={this.increment} size="icon">
+            +
+          </Button>
+          <Button aria-label="Scade contorul" onClick={this.decrement} size="icon" variant="secondary">
+            −
+          </Button>
+          <Button aria-label="Resetează contorul" onClick={this.reset} size="icon" variant="outline">
+            0
+          </Button>
+        </div>
       </section>
     );
   }

@@ -10,9 +10,9 @@ type CounterCardProps = {
 
 function CounterCard({ label, count, onIncrement }: CounterCardProps) {
   return (
-    <div className="rounded-card border border-border bg-card p-4 text-left">
+    <div className="flex flex-col gap-3 rounded-card border border-border bg-card p-4 text-left">
       <h3 className="text-lg font-medium text-card-foreground">{label}</h3>
-      <p className="mb-3 text-3xl font-semibold text-primary">{count}</p>
+      <p className="text-3xl font-semibold text-primary">{count}</p>
       <Button onClick={onIncrement}>+1</Button>
     </div>
   );
@@ -20,7 +20,7 @@ function CounterCard({ label, count, onIncrement }: CounterCardProps) {
 
 function CodeBlock({ children }: { children: string }) {
   return (
-    <pre className="mt-6 overflow-x-auto rounded-card border border-border bg-muted p-4 text-left text-sm">
+    <pre className="overflow-x-auto rounded-card border border-border bg-muted p-4 text-left text-sm">
       <code>{children}</code>
     </pre>
   );
@@ -59,24 +59,24 @@ export function ContextDemo() {
   const adulti = useCounter(0, 1);
 
   return (
-    <section className="mx-auto w-full max-w-4xl px-5">
+    <section className="mx-auto flex w-full max-w-4xl flex-col gap-6 px-5">
       <h2>Context: o valoare partajată, fără prop drilling</h2>
-      <p className="mb-6 text-muted-foreground">
+      <p className="text-muted-foreground">
         ID activ primit direct din context: <strong className="text-foreground">{activeId}</strong>. Schimbă un pas din
         meniul headerului și această valoare se actualizează fără niciun prop.
       </p>
 
       <div className="grid gap-4 md:grid-cols-2">
-        <article className="rounded-card border border-primary bg-primary/10 p-5 text-left">
+        <article className="flex flex-col gap-4 rounded-card border border-primary bg-primary/10 p-5 text-left">
           <h3 className="text-xl font-medium text-card-foreground">GLOBAL — useContext</h3>
-          <p className="mb-4 text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground">
             Dropdown-ul este un al doilea meniu: scrie în exact aceeași stare ca headerul.
           </p>
-          <label className="block font-medium text-card-foreground" htmlFor="active-step-select">
+          <label className="flex flex-col gap-2 font-medium text-card-foreground" htmlFor="active-step-select">
             Pas activ
           </label>
           <select
-            className="mt-2 w-full rounded-md border border-input bg-background px-3 py-2 text-foreground"
+            className="w-full rounded-md border border-input bg-background px-3 py-2 text-foreground"
             id="active-step-select"
             onChange={event => setActiveId(event.currentTarget.value)}
             value={activeId}
@@ -89,9 +89,9 @@ export function ContextDemo() {
           </select>
         </article>
 
-        <article className="rounded-card border border-border bg-card p-5 text-left">
+        <article className="flex flex-col gap-4 rounded-card border border-border bg-card p-5 text-left">
           <h3 className="text-xl font-medium text-card-foreground">LOCAL — useState / useCounter</h3>
-          <p className="mb-4 text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground">
             Același hook reutilizat de două ori creează două stări independente.
           </p>
           <div className="grid gap-3 sm:grid-cols-2">
@@ -101,7 +101,7 @@ export function ContextDemo() {
         </article>
       </div>
 
-      <p className="mt-6 text-sm text-muted-foreground">
+      <p className="text-sm text-muted-foreground">
         Aceeași rețetă se aplică la scară de aplicație pentru <code>ThemeProvider/useTheme</code> și pentru
         <code> CurrentStepProvider/useCurrentStep</code>.
       </p>

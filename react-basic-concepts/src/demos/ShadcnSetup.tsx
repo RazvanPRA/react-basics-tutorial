@@ -6,47 +6,37 @@ export function ShadcnSetup() {
   return (
     <section className="mx-auto flex w-full max-w-4xl flex-col gap-6 px-5 pb-10 text-left">
       <p className="text-center text-muted-foreground">
-        Ambele coloane pornesc de la un buton HTML. Diferența este cât comportament repetitiv trebuie să scriem și să
-        verificăm de fiecare dată.
+        Toate controalele folosesc componenta locală de UI, astfel încât dimensiunea, focusul și stările rămân
+        consecvente.
       </p>
 
       <div className="grid gap-6 md:grid-cols-2">
-        <article className="rounded-card border border-border bg-card p-6 text-card-foreground shadow-sm">
-          <h2>Manual</h2>
-          <p className="mb-5 text-muted-foreground">
-            Clasele arată bine acum, dar nu definesc variante sau un focus vizibil.
+        <article className="flex flex-col gap-4 rounded-card border border-border bg-card p-6 text-card-foreground shadow-sm">
+          <h2>De bază</h2>
+          <p className="text-muted-foreground">
+            Varianta standard păstrează aceleași dimensiuni și același focus vizibil ca restul aplicației.
           </p>
-          <div className="flex flex-wrap gap-3">
-            <button
-              className="rounded-md bg-primary px-4 py-2 font-semibold text-primary-foreground outline-none"
-              type="button"
-            >
-              Buton scris de mână
-            </button>
-            <button
-              className="rounded-md bg-primary px-4 py-2 font-semibold text-primary-foreground opacity-50 outline-none"
-              type="button"
-            >
-              Pare dezactivat
-            </button>
+          <div className="flex flex-wrap items-center gap-3">
+            <Button>Buton scris de mână</Button>
+            <Button className="opacity-50">Pare dezactivat</Button>
           </div>
         </article>
 
-        <article className="rounded-card border border-border bg-card p-6 text-card-foreground shadow-sm">
+        <article className="flex flex-col gap-4 rounded-card border border-border bg-card p-6 text-card-foreground shadow-sm">
           <h2>shadcn/ui</h2>
-          <p className="mb-5 text-muted-foreground">
+          <p className="text-muted-foreground">
             Focus ring-ul, starea disabled și variantele sunt deja centralizate în componenta locală.
           </p>
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <Button>Buton din proiect</Button>
             <Button disabled>Dezactivat cu adevărat</Button>
           </div>
         </article>
       </div>
 
-      <article className="rounded-card border border-border bg-card p-6 text-card-foreground shadow-sm">
+      <article className="flex flex-col gap-4 rounded-card border border-border bg-card p-6 text-card-foreground shadow-sm">
         <h2>Variante tipate</h2>
-        <div className="mt-4 flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           {variants.map(variant => (
             <Button key={variant} variant={variant}>
               {variant}

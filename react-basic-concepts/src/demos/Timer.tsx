@@ -80,12 +80,16 @@ export default function Timer() {
   }, []);
 
   return (
-    <section>
-      <p aria-live="polite" style={{ fontSize: "3rem" }}>
+    <section className="mx-auto flex w-full max-w-md flex-col items-center gap-4 px-5 text-center">
+      <p aria-live="polite" className="text-5xl font-semibold text-foreground">
         {seconds} s
       </p>
-      <Button onClick={() => setRunning(currentRunning => !currentRunning)}>{running ? "Pauză" : "Pornește"}</Button>
-      <Button onClick={() => setSeconds(0)}>Reset</Button>
+      <div className="flex flex-wrap items-center justify-center gap-2">
+        <Button onClick={() => setRunning(currentRunning => !currentRunning)}>{running ? "Pauză" : "Pornește"}</Button>
+        <Button onClick={() => setSeconds(0)} variant="outline">
+          Reset
+        </Button>
+      </div>
     </section>
   );
 }

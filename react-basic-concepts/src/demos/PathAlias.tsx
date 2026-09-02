@@ -17,21 +17,6 @@ import { Avatar } from "@/components/ui/avatar";
 // src/App.tsx
 import { Timer } from "@/demos/Timer";`;
 
-const codeStyle = {
-  margin: 0,
-  padding: "16px",
-  overflowX: "auto" as const,
-  textAlign: "left" as const,
-  whiteSpace: "pre",
-  fontFamily: "var(--mono)",
-  fontSize: "14px",
-  lineHeight: 1.55,
-  color: "var(--text-h)",
-  background: "var(--code-bg)",
-  border: "1px solid var(--border)",
-  borderRadius: "8px"
-};
-
 export function PathAlias() {
   const [usesAlias, setUsesAlias] = useState(false);
   const imports = usesAlias ? aliasImports : relativeImports;
@@ -39,13 +24,13 @@ export function PathAlias() {
   return (
     <section
       aria-label="Demonstrație alias de import"
-      style={{ maxWidth: "900px", margin: "0 auto", padding: "0 24px 40px" }}
+      className="mx-auto flex w-full max-w-4xl flex-col gap-6 px-5 text-left"
     >
-      <p style={{ marginBottom: "20px" }}>
+      <p className="text-muted-foreground">
         <code>@/</code> pornește mereu din <code>src/</code>, indiferent unde se află fișierul care importă.
       </p>
 
-      <div style={{ display: "flex", justifyContent: "center", gap: "12px", flexWrap: "wrap", marginBottom: "20px" }}>
+      <div className="flex flex-wrap items-center justify-center gap-3">
         <Button
           aria-pressed={!usesAlias}
           onClick={() => setUsesAlias(false)}
@@ -62,31 +47,26 @@ export function PathAlias() {
         </Button>
       </div>
 
-      <pre style={codeStyle} aria-live="polite">
+      <pre
+        aria-live="polite"
+        className="overflow-x-auto rounded-card border border-border bg-muted p-4 text-left text-sm text-foreground"
+      >
         <code>{imports}</code>
       </pre>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-          gap: "16px",
-          marginTop: "24px",
-          textAlign: "left"
-        }}
-      >
-        <article style={{ padding: "20px", border: "1px solid var(--border)", borderRadius: "8px" }}>
+      <div className="grid gap-4 text-left sm:grid-cols-2">
+        <article className="flex flex-col gap-3 rounded-card border border-border bg-card p-5 text-card-foreground">
           <h2>tsconfig.app.json</h2>
           <p>
             Îi spune lui TypeScript și editorului că <code>@/</code> înseamnă <code>src/</code>: type-check, Go to
             Definition și autocomplete.
           </p>
-          <p style={{ marginTop: "12px" }}>Dacă lipsește, IDE-ul va raporta importuri negăsite.</p>
+          <p>Dacă lipsește, IDE-ul va raporta importuri negăsite.</p>
         </article>
-        <article style={{ padding: "20px", border: "1px solid var(--border)", borderRadius: "8px" }}>
+        <article className="flex flex-col gap-3 rounded-card border border-border bg-card p-5 text-card-foreground">
           <h2>vite.config.ts</h2>
           <p>Îi spune lui Vite unde este fișierul real, atât în development, cât și la build.</p>
-          <p style={{ marginTop: "12px" }}>
+          <p>
             Dacă lipsește, aplicația sau build-ul nu poate rezolva <code>@/...</code>.
           </p>
         </article>

@@ -28,36 +28,44 @@ export function PureFunctions() {
   const impureEur = impureConvert(ron, rate);
 
   return (
-    <section>
+    <section className="mx-auto flex w-full max-w-2xl flex-col gap-6 px-5 text-left">
       <h2>Schimb valutar: funcții pure vs. impure</h2>
 
-      <p>
-        Suma: <strong>{ron} RON</strong>
-      </p>
-      <Button onClick={() => setRon(current => Math.max(0, current - 10))}>−10 RON</Button>
-      <Button onClick={() => setRon(current => current + 10)}>+10 RON</Button>
+      <div className="flex flex-wrap items-center gap-3 rounded-card border border-border bg-card p-4 text-card-foreground">
+        <p>
+          Suma: <strong>{ron} RON</strong>
+        </p>
+        <Button onClick={() => setRon(current => Math.max(0, current - 10))} variant="secondary">
+          −10 RON
+        </Button>
+        <Button onClick={() => setRon(current => current + 10)}>+10 RON</Button>
+      </div>
 
-      <p>
-        Curs: <strong>1 EUR = {rate.toFixed(2)} RON</strong>
-      </p>
-      <Button onClick={() => setRate(current => Math.max(RATE_STEP, current - RATE_STEP))}>−{RATE_STEP} RON</Button>
-      <Button onClick={() => setRate(current => current + RATE_STEP)}>+{RATE_STEP} RON</Button>
+      <div className="flex flex-wrap items-center gap-3 rounded-card border border-border bg-card p-4 text-card-foreground">
+        <p>
+          Curs: <strong>1 EUR = {rate.toFixed(2)} RON</strong>
+        </p>
+        <Button onClick={() => setRate(current => Math.max(RATE_STEP, current - RATE_STEP))} variant="secondary">
+          −{RATE_STEP} RON
+        </Button>
+        <Button onClick={() => setRate(current => current + RATE_STEP)}>+{RATE_STEP} RON</Button>
+      </div>
 
-      <p>
+      <label className="flex items-center gap-2 text-muted-foreground">
         {/* Checkbox-ul este intenționat necontrolat: schimbarea lui nu schimbă state-ul React. */}
-        <label>
-          <input id="pure-comision" type="checkbox" /> aplică comision de 1%
-        </label>
-      </p>
+        <input className="size-4 accent-primary" id="pure-comision" type="checkbox" /> aplică comision de 1%
+      </label>
 
-      <p>
-        Conversie pură: <strong>{pureEur.toFixed(2)} EUR</strong>
-      </p>
-      <p>
-        Conversie impură: <strong>{impureEur.toFixed(2)} EUR</strong>
-      </p>
+      <div className="grid gap-3 rounded-card border border-primary bg-primary/10 p-4 text-card-foreground sm:grid-cols-2">
+        <p>
+          Conversie pură: <strong>{pureEur.toFixed(2)} EUR</strong>
+        </p>
+        <p>
+          Conversie impură: <strong>{impureEur.toFixed(2)} EUR</strong>
+        </p>
+      </div>
 
-      <p>
+      <p className="text-muted-foreground">
         Bifează comisionul: valoarea impură rămâne veche. Apasă apoi „+10 RON” ca să declanșezi un re-render și vei
         vedea comisionul aplicat.
       </p>

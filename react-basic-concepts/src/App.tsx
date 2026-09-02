@@ -81,7 +81,7 @@ function AppContent({ isDark, onToggleTheme }: { isDark: boolean; onToggleTheme:
         ))}
         <ThemeToggle isDark={isDark} onToggle={onToggleTheme} />
       </nav>
-      <main>
+      <main className="flex flex-1 flex-col gap-8 py-8 sm:py-10">
         <h1>
           Pas {active.step} — {active.title}
         </h1>

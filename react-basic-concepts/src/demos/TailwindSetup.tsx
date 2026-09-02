@@ -1,12 +1,13 @@
 import { useState, type CSSProperties } from "react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const manualCardStyle: CSSProperties = {
-  backgroundColor: "#fafafa",
-  border: "1px solid #e5e5e5",
+  backgroundColor: "var(--card)",
+  border: "1px solid var(--border)",
   borderRadius: "12px",
-  boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1)",
-  color: "#171717",
+  boxShadow: "var(--shadow)",
+  color: "var(--card-foreground)",
   maxWidth: "24rem",
   padding: "24px",
   textAlign: "left"
@@ -24,18 +25,20 @@ export function TailwindSetup() {
       <div className="inline-flex rounded-card border border-border bg-muted p-1 text-sm font-semibold">
         <Button
           aria-pressed={!usesTokens}
-          className={`rounded-card px-3 py-2 transition ${
+          className={cn(
+            "rounded-card px-3 py-2 transition",
             !usesTokens ? "bg-card text-card-foreground shadow-sm" : "text-muted-foreground"
-          }`}
+          )}
           onClick={() => setUsesTokens(false)}
         >
           Stiluri scrise de mână
         </Button>
         <Button
           aria-pressed={usesTokens}
-          className={`rounded-card px-3 py-2 transition ${
+          className={cn(
+            "rounded-card px-3 py-2 transition",
             usesTokens ? "bg-card text-card-foreground shadow-sm" : "text-muted-foreground"
-          }`}
+          )}
           onClick={() => setUsesTokens(true)}
         >
           Utilitare + tokeni
@@ -60,10 +63,10 @@ export function TailwindSetup() {
           <Button>Alege planul</Button>
         </article>
       ) : (
-        <article style={manualCardStyle}>
-          <p style={{ color: "#737373", fontSize: "14px", fontWeight: 600, margin: "0 0 8px" }}>Plan Pro</p>
-          <h2 style={{ color: "#171717", fontSize: "24px", margin: "0 0 8px" }}>Un spațiu de lucru ordonat</h2>
-          <p style={{ color: "#525252", margin: "0 0 24px" }}>
+        <article className="flex flex-col gap-4" style={manualCardStyle}>
+          <p style={{ color: "var(--primary)", fontSize: "14px", fontWeight: 600 }}>Plan Pro</p>
+          <h2 style={{ color: "var(--card-foreground)", fontSize: "24px" }}>Un spațiu de lucru ordonat</h2>
+          <p style={{ color: "var(--muted-foreground)" }}>
             O experiență de lucru consecventă, construită din valori reutilizabile.
           </p>
           <Button>Alege planul</Button>
@@ -72,7 +75,7 @@ export function TailwindSetup() {
       <p className="max-w-sm text-center text-sm text-muted-foreground">
         {usesTokens
           ? "Tokenii se schimbă odată cu tema, deci cardul se adaptează fără modificări în componentă."
-          : "Culorile #fafafa și #171717 sunt hardcodate, deci cardul rămâne alb în dark mode."}
+          : "Stilurile scrise manual folosesc acum aceiași tokeni, deci cardul urmează tema."}
       </p>
     </section>
   );
